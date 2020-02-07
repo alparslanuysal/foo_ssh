@@ -25,8 +25,8 @@ except Exception as e:
 def on_new_client(client, connection):
 	ip = connection[0]
 	port = connection[1]
-        server_home_dir = os.environ['HOME']
-        os.chdir(server_home_dir)
+	server_home_dir=os.environ['HOME']
+	os.chdir(server_home_dir)
 	print(f"THe new connection was made from IP: {ip}, and port: {port}!")
 	while True:
                 data = client.recv(1024)
