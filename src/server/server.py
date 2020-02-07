@@ -38,7 +38,8 @@ def on_new_client(client, connection):
                                           stdin=subprocess.PIPE, stderr=subprocess.PIPE)
                     output_byte = cmd.stdout.read() + cmd.stderr.read()
                     output_str = str(output_byte, "utf-8")
-                    client.send(str.encode(output_str))
+                    currentDir = "Current Directory : " + os.getcwd() + " . "
+                    client.send(str.encode(output_str + currentDir))
                     print(output_str)
 
 	print(f"The client from ip: {ip}, and port: {port},  diconnected!")

@@ -43,7 +43,7 @@ def main(hostname, port):
             if msg =='exit':
                 print("Bye Client!")
                 break
-            data = sck.recv(1024) # optimize byte size
+            data = sck.recv(20480) #optimize byte size
             #process data
             print(f"=>: {data.decode()}")
 
