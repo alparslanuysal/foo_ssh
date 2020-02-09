@@ -36,6 +36,28 @@ Arguments:
 --host : Write a hostname or ipv4 that client needs to connect. If you do not provide hostname client will connect to the localhost
 --port : Write a port number that server is running on.By default port number is 9999
 
+## Usage
+Simply :
+
+```
+python3 client.py --host <hostname> --port <port>
+```
+
+After running the client.py file.You can execute commands on the server
+
+```
+Connecting the server : <hostname> on port : <port>
+Successfully connected
+foo_ssh>ls -l
+=>:total 16
+drwxrwxr-x 2 ubuntu ubuntu 4096 Feb  7 14:49 boo_folder
+drwxrwxr-x 2 ubuntu ubuntu 4096 Feb  7 14:49 bar_folder
+Current Directory : /home/ubuntu .
+foo_ssh>cd boo_folder
+Current Directory : /home/ubuntu/boo_folder
+foo_ssh>exit
+Bye Client! 
+```
 
 ## Running the tests
 Unit tests is under the tests/unit folder in test.py file
