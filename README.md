@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up or running on your loca
 On the client side you should install requirements at the project source folder
 
 ```
-pip install requirements.txt
+pip3 install requirements.txt
 ```
 
 ### Installing
