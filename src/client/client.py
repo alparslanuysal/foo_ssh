@@ -4,6 +4,7 @@ import ipaddress
 import re
 import tenacity
 from client_helpers import is_hostname_valid,is_port_number_valid, connect_socket
+import time
 
 def setUp():
     address = ""
@@ -35,17 +36,22 @@ def main(hostname, port):
     print(f"Connecting to server: {hostname} on port: {port}")
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sck:
-        connect_socket(sck, hostname, port)
-        print("Successfully connected")
+        try:
+            connect_socket(sck, hostname, port)
+            print("Successfully connected")
+        except Exception as e:
+            raise SystemExit(f"Could not connect to the server on host: {hostname}, because: {e}")
         while True:
             msg = input("foo_ssh> ")
             sck.sendall(msg.encode('utf-8'))
             if msg =='exit':
+                time.sleep(0.5)
                 print("Bye Client!")
                 break
             data = sck.recv(20480) #optimize byte size
             #process data
             print(f"=>: {data.decode()}")
+        sck.close()
 
 
 if __name__ == '__main__':

