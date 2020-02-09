@@ -4,6 +4,7 @@ import threading
 import os
 import subprocess
 from multiprocessing import Process
+import platform
 
 parser = argparse.ArgumentParser(description = "This is the foo_ssh server demo!")
 parser.add_argument('--host', metavar = 'host', type = str, nargs = '?', default = socket.gethostname())
@@ -25,7 +26,12 @@ except Exception as e:
 def on_new_client(client, connection):
 	ip = connection[0]
 	port = connection[1]
-	server_home_dir=os.environ['HOME']
+	server_home_dir = ""
+	platform_sys = platform.system()
+	if platform_sys == 'Windows':
+		server_home_dir = os.getenv('userprofile')
+	else:
+		server_home_dir=os.environ['HOME']
 	os.chdir(server_home_dir)
 	print(f"THe new connection was made from IP: {ip}, and port: {port}!")
 	while True:
